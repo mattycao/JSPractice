@@ -9,13 +9,19 @@
             padding: 0;
         }
         .box {
-            width: 500px;
+            width: 1020px;
             margin: 30px auto;
+        }
+        .item {
+            float: left;
         }
 
         .img, .img img {
             width:  500px;
             height: 400px;
+        }
+        .img {
+            margin-right: 10px;
         }
         .info span {
             height: 24px;
@@ -26,11 +32,23 @@
 </head>
 <body>
 <div class="box">
-    <div class="img">
-        <img src="src/cat1.jpg" alt="the cat one">
+    <div class="item">
+        <div class="img">
+            <img src="src/cat1.jpg" alt="the cat one">
+        </div>
+        <div class="info">
+            <p><span>The clicked times:</span><span class="click">0</span></p>
+            <p><span>name:</span><span class="name"></span></p>
+        </div>
     </div>
-    <div class="info">
-        <span>The clicked times:</span><span id="click">0</span>
+    <div class="item">
+        <div class="img">
+            <img src="src/cat2.jpg" alt="the cat one">
+        </div>
+        <div class="info">
+            <p><span>The clicked times:</span><span class="click">0</span></p>
+            <p><span>name:</span><span class="name"></span></p>
+        </div>
     </div>
 </div>
 <script src="src/main.js"></script>

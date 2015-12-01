@@ -3,11 +3,16 @@
  */
 (function() {
     "use strict";
-    var oClick = document.getElementById('click');
-    var oImg = document.getElementsByTagName('img')[0];
-    oImg.addEventListener('click', function() {
-        var times = parseInt(oClick.innerHTML);
-        times++;
-        oClick.innerHTML = times;
-    }, false);
+    var oClicks = document.getElementsByClassName('click'); // ie8 not support
+    var oImgs = document.getElementsByTagName('img');
+    for(var i = 0; i < oClicks.length; i++) {
+        ;(function(i){
+            oImgs[i].addEventListener('click', function() {
+                var times = parseInt(oClicks[i].innerHTML);
+                times++;
+                oClicks[i].innerHTML = times;
+            },false);
+        }(i));
+
+    }
 }());
