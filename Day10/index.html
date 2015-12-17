@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day10</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul {
+            width: 200px;
+            line-height: 30px;
+            margin: 30px auto;
+        }
+
+        li {
+            line-height: 30px;
+            font-size: 20px;
+        }
+
+        li:nth-child(even) {
+            background-color: green;
+        }
+
+        li:nth-child(odd) {
+            background-color: yellow;
+        }
+
+        #add {
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            border-radius: 50%;
+            font-size: 40px;
+            line-height: 50px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<ul id="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+</ul>
+<div id="add">+</div>
+<script>
+    var addList = {
+        addHTML: function (ele) {
+            var length = ele.getElementsByTagName('li').length;
+            var temp = document.createElement('li');
+            temp.appendChild(document.createTextNode(length + 1 + ''));
+            ele.appendChild(temp);
+            //ele.innerHTML += '<li>' + (length + 1) + '</li>';
+            this.populateEvent(ele);
+        },
+        addEvent: function (ele, i) {
+            var temp = ele.getElementsByTagName('li').item(i);
+            temp.onclick = function () {
+                console.log('I am the ' + (i + 1) + ' one.');
+            }
+        },
+        populateEvent: function (ele) {
+            var list = ele.getElementsByTagName('li');
+            for (var i = 0; i < list.length; i++) {
+                list[i].onclick = (function (i) {
+                    return function() {
+                        console.log('I am the ' + (i + 1) + ' one.');
+                    }
+                }(i));
+            }
+        },
+        bindBtn: function (btn, ele) {
+            var that = this;
+            btn.onclick = function() {
+                that.addHTML(ele);
+            }
+        },
+        init: function (opt) {
+            opt.btn = opt.btn || null;
+            opt.ele = opt.ele || null;
+            this.bindBtn(opt.btn, opt.ele);
+            this.populateEvent(opt.ele);
+        }
+    }
+    var btn = document.getElementById('add');
+    var oUl = document.getElementById('list');
+    addList.init( {
+        btn: btn,
+        ele: oUl
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cover</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .main input {
+            height: 30px;
+            width: 100px;
+            font-size: 20px;
+            margin: 30px 0 0 30px;
+        }
+        .bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #666;
+            left: 0;
+            top: 0;
+            opacity: 0.5;
+            display: none;
+        }
+
+        .layer {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background-color: green;
+            border: 1px dashed red;
+            left: 50%;
+            top: 50%;
+            margin-top:-200px;
+            margin-left:-200px;
+            text-align: center;
+            font-size: 40px;
+            line-height: 400px;
+        }
+
+        .layer span {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <input id="btn" type="submit" value="Please Click">
+</div>
+<div class="bg">
+    <div class="layer">
+        <span>X</span>
+    </div>
+</div>
+<script>
+    (function() {
+        "use strict";
+        var btn = document.getElementById('btn');
+        var layer = document.getElementsByClassName('bg')[0];
+        var xBtn = layer.getElementsByTagName('span')[0];
+        xBtn.onclick = function() {
+            layer.style.display = 'none';
+        }
+        btn.onclick = function() {
+            layer.style.display = 'block';
+        }
+    }());
+</script>
+</body>
+</html>
