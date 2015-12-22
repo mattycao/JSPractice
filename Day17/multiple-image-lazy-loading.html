@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        img{display:block;}
+    </style>
+</head>
+<body>
+<h3>Lazy loading about images</h3>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<img realImg="http://pic1.win4000.com/pic/9/8c/0a08466924.jpg" src="default.gif">
+<img realImg="http://pic1.win4000.com/pic/9/8c/0a08466925.jpg" src="default.gif">
+<img realImg="http://pic1.win4000.com/pic/9/8c/0a08466926.jpg" src="default.gif">
+<img realImg="http://pic1.win4000.com/pic/9/8c/0a08466927.jpg" src="default.gif">
+<img realImg="http://pic1.win4000.com/pic/9/8c/0a08466928.jpg" src="default.gif">
+<script>
+    (function() {
+        "use strict";
+        function offset(ele) {
+            var left = ele.offsetLeft;
+            var top = ele.offsetTop;
+            var p =ele.offsetParent;
+
+            if(window.navigator.userAgent.indexOf('MSE 8') > -1) {
+                while(p) {
+                    left += p.offsetLeft;
+                    top += p.offsetTop;
+                    p = p.offsetParent;
+                }
+
+            } else {
+                while(p) {
+                    left += p.offsetLeft + p.clientLeft;
+                    top += p.offsetTop + p.clientTop;
+                    p = p.offsetParent;
+                }
+            }
+            return {left: left,top: top};
+        }
+
+        var imgList = document.getElementsByTagName('img');
+        window.onscroll = function() {
+            for(var i = 0; i < imgList.length; i++) {
+                loadImg(imgList[i]);
+            }
+        }
+        function loadImg(ele) {
+            var hCurrent = (document.documentElement.scrollTop||document.body.scrollTop)+(document.documentElement.clientHeight||document.body.clientHeight);
+            var height = offset(ele).top;
+            console.log('Current Height:' + hCurrent + ', height: ' + height);
+            if(!ele.loaded && height < hCurrent) {
+                var urlAttr = ele.getAttribute('realImg');
+                var imgEle = new Image;
+                imgEle.src = urlAttr;
+                imgEle.onload = function() {
+                    console.log('yes');
+                    ele.src = this.src;
+                    ele.loaded=true;
+                }
+                imgEle.onerror = function() {
+                    console.log('Loading Error');
+                }
+            }
+        }
+
+
+    }());
+</script>
+</body>
+</html>
