@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Practice</title>
+
+</head>
+<body>
+<form name='demo_form'>
+    First name: <input type="text" name="fname"><br>
+    Last name: <input type="text" name="lname"><br>
+    <input type="submit" value="Submit">
+</form>
+<script src="jquery-1.9.1.js"></script>
+<script>
+    // Hide all the input elements within a form
+    $(function () {
+        $("[name='demo_form'] :input").hide();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Practice</title>
+
+</head>
+<body>
+<select id="myselect">
+    <option value="1">Option-1</option>
+    <option value="2">Option-2</option>
+    <option value="3">Option-3</option>
+</select>
+<script src="jquery-1.9.1.js"></script>
+<script>
+    // Find the specific option tag text value of a selected option.
+    $(function () {
+        $("#myselect").click(function() {
+            console.log($("#myselect :selected").text());
+        });
+    });
+</script>
+</body>
+</html>

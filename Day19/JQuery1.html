@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Practice</title>
+
+</head>
+<body>
+<h1>abc</h1>
+<div>
+    <h1>div-1</h1>
+    <h1>div-2</h1>
+</div>
+<h1>xyz</h1>
+<script src="jquery-1.9.1.js"></script>
+<script>
+    // Find all h1 elements that are children of a div element and apply a background to them.
+    $(function() {
+       $('div > h1').css('backgroundColor', 'red');
+    });
+</script>
+</body>
+</html>
