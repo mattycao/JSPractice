@@ -64,3 +64,46 @@ function setCss(ele, attr, val) {
         ele.style[attr] = val;
     }
 }
+
+
+/**
+ * The animation functions
+ * @param ele
+ * @param attr
+ * @param target
+ * @param duration
+ * @param fn
+ */
+function animate(ele, attr, target, duration, fn) {
+    // animation process: 1. the total time 2. the initial value 3. the target value 4. the duration 5. the interval time
+    clearInterval(ele.timer);
+    var begin = getCss(ele, attr);
+    var change = target - begin;
+    if (change === 0) {
+        if (typeof fn === 'function') {
+            fn.call(ele);
+        }
+        return;
+    }
+    var interval = 15;
+    var times = 0;
+
+    function step() {
+        times += interval;
+        if (times >= duration) {
+            setCss(ele, attr, target);
+            clearInterval(ele.timer);
+            ele.timer = null;//动画停止时把ele.timer置为null。这样ele.timer就成为判断ele这个元素是否在运动中的依据了
+            //动画结束
+            if (typeof fn == "function") {
+                fn.call(ele);
+                //fnCallback();
+                //回调方法里的this，一直表示为当前运动的这个元素
+            }
+        } else {
+            var val = times / duration * change + begin;
+            setCss(ele, attr, val)
+        }
+    }
+    ele.timer = window.setInterval(step, interval);
+}
