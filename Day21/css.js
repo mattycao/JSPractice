@@ -105,5 +105,57 @@ function animate(ele, attr, target, duration, fn) {
             setCss(ele, attr, val)
         }
     }
+
+    ele.timer = window.setInterval(step, interval);
+}
+
+function animate(ele, obj, duration, fn) {
+    if (ele.timer) {
+        return;
+    }
+    var oBegin = {};
+    var oChange = {};
+    var flag = 0;
+    for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) {
+            var begin = getCss(ele, attr);
+            var target = obj[attr];
+            var change = target - begin;
+            if (change) {
+                oBegin[attr] = begin;
+                oChange[attr] = change;
+                flag++;
+            }
+        }
+    }
+    if (flag === 0) {
+        if (typeof fn === 'function') {
+            fn.call(ele);
+        }
+        return;
+    }
+
+    var interval = 15;
+    var time = 0;
+
+    function step() {
+        time += interval;
+        if (time >= interval) {
+            clearInterval(ele.timer);
+            ele.timer = null;
+            for (var attr in oBegin) {
+                setCss(ele, attr, obj[attr]);
+            }
+            if (typeof fn === 'function') {
+                fn.call(ele);
+            }
+        } else {
+            for (var attr in oBegin) {
+                var value = oBegin[attr] + time * oChange[attr] / duration;
+                setCss(ele, attr, value);
+            }
+        }
+    }
+
     ele.timer = window.setInterval(step, interval);
 }
