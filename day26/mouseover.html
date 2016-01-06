@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mask</title>
+    <style>
+        .outer {
+            width: 400px;
+            height: 400px;
+            top: 0;
+            left: 0;
+            background-color: green;
+            position: absolute;
+        }
+
+        #mask {
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="outer">
+</div>
+<script>
+    var oDivOuter = document.getElementsByClassName('outer')[0];
+    oDivOuter.onmouseover = function(e) {
+        // when in, then build a mask div
+        var oDivMask = document.createElement('div');
+        oDivMask.id = 'mask';
+        var e = e || window.event;
+        oDivMask.style.left = e.clientX + 'px';
+        oDivMask.style.top = e.clientY + 'px';
+        this.appendChild(oDivMask);
+        oDivMask.onmouseover = function(e){
+            e.stopPropagation();
+            if(e.cancelBubble) {
+                e.cancelBubble = true; // ie 678
+            }
+        }
+    }
+
+    oDivOuter.onmousemove = function() {
+        // it will go with the mouse position
+    }
+
+    oDivOuter.onmouseout = function() {
+        // will disappear when the mouse out
+
+    }
+</script>
+</body>
+</html>
