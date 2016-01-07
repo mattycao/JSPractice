@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drag</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #box {
+            position: absolute;
+            background-color: red;
+            width: 100px;
+            height: 100px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            cursor: move;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    Drag effect
+</div>
+<script>
+    function down(e){//准备拖拽
+        e=e||window.event;
+        this.l=this.offsetLeft;
+        this.t=this.offsetTop;
+        this.x=e.clientX;
+        this.y=e.clientY;
+        if(this.setCapture){
+            this.setCapture();//这个方法本是IE专有的方法，现在FireFox也实现了
+            //用来捕捉鼠标焦点的，mousemove事件专用的
+            this.onmousemove=move;
+            this.onmouseup=up;
+        }else{
+            var _this=this;
+            var MOVE=function(e){move.call(_this,e);}
+            var UP=function(e){up.call(_this,e)}
+            document.onmousemove=MOVE;
+            document.onmouseup=UP;
+        }
+    }
+    function move(e){//时行拖拽
+        e=e||window.event;
+        this.style.left=this.l+(e.clientX-this.x)+"px";
+        this.style.top=this.t+(e.clientY-this.y)+"px";
+//        if(!this.prevT){//第一次
+//            this.prevT=new Date;
+//            this.prevP=this.offsetLeft;//初始化“上一次的”位置
+//        }else{
+//            console.log(new Date-this.prevT);
+//            this.prevT=new Date;
+//            this.speed=this.offsetLeft-this.prevP;
+//            this.prevP=this.offsetLeft;
+//
+//        }
+
+    }
+    function up(e){//结束拖拽
+        console.log(this);
+//        this.onmousemove=null;
+//        this.onmouseup=null;
+        e=e||window.event;
+        if(this.releaseCapture){
+            this.releaseCapture();
+            this.onmousemove=null;
+            this.onmouseup=null;
+        }else{
+            document.onmousemove=null;
+            document.onmouseup=null;
+        }
+//        fly.call(this);
+//        drop.call(this);
+    }
+    var ele=document.getElementById('box');
+    ele.onmousedown=down;
+</script>
+</body>
+</html>
