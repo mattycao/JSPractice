@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style type="text/css">
+        #menu li span {
+            cursor: pointer;
+            -webkit-user-select: none;
+        }
+
+        #menu .end {
+            background: red;
+        }
+
+        #menu .container {
+            background: green;
+        }
+
+        #menu .close:before {
+            content: "+";
+            font-size: 24px;
+            color: red;
+            width: 35px;
+            text-align: center;
+
+        }
+
+        #menu .open:before {
+            font-size: 24px;
+            color: white;
+            content: "-";
+        }
+    </style>
+</head>
+
+<body>
+<ul id="menu">
+    <li>
+        <span>第一级菜单1</span>
+        <ul>
+            <li><span>第二级菜单1-1</span></li>
+            <li><span>第二级菜单1-2</span></li>
+            <li><span>第二级菜单1-3</span></li>
+        </ul>
+    </li>
+    <li><span>第一级菜单2</span>
+        <ul>
+            <li><span>第二级菜单2-1</span></li>
+            <li><span>第二级菜单2-2</span></li>
+            <li><span>第二级菜单2-3</span>
+                <ul>
+
+                    <li><span>第3级菜单2-3-1</span></li>
+                    <li><span>第3级菜单2-3-2</span></li>
+                    <li><span>第3级菜单2-3-3</span>
+                        <ul>
+                            <li><span>第4级菜单1-1</span></li>
+                            <li><span>第4级菜单1-2</span></li>
+                            <li><span>第4级菜单1-3</span></li>
+                        </ul>
+
+
+                    </li>
+
+                </ul>
+
+            </li>
+        </ul>
+    </li>
+    <li><span>第一级菜单3</span>
+        <ul>
+            <li><span>第二级菜单3-1</span></li>
+            <li><span>第二级菜3-2</span></li>
+            <li><span>第二级菜单3-3</span></li>
+        </ul>
+    </li>
+    <li><span>第一级菜单4</span></li>
+    <li><span>第一级菜单5</span></li>
+    <li><span>第一级菜单6</span></li>
+
+</ul>
+
+</body>
+</html>
+
+<script>
+    //有非常多的事件要绑定处理，并且被绑定事件的这些元素，存在包含关系
+    var oLis = document.getElementById("menu").getElementsByTagName("li");
+    for (var i = 0; i < oLis.length; i++) {
+        var oLi = oLis.item(i);
+        var oUls = oLi.getElementsByTagName("ul");
+        var oSpan = oLi.children[0];
+        if (oUls.length == 0) {
+            oSpan.className = "end";
+        } else {
+            oSpan.className = "container close";
+            for (var j = 0; j < oUls.length; j++) {
+                oUls.item(j).style.display = "none";
+            }
+        }
+    }
+    document.getElementById("menu").onclick = function (e) {
+        e = e || window.event;
+        var target = e.target || e.srcElement;
+        if (target.nodeName == "SPAN") {
+            var oUl = target.nextElementSibling;
+            if (oUl) {
+                if (oUl.style.display == "none") {
+                    oUl.style.display = "block";
+                    target.className = "container open";
+                } else {
+                    oUl.style.display = "none";
+                    target.className = "container close";
+                    var eles = oUl.getElementsByTagName("ul");
+                    for (var i = 0; i < eles.length; i++) {
+                        eles[i].style.display = "none";
+                        eles[i].previousElementSibling.className = "container close";
+
+                    }
+                }
+            }
+        }
+    }
+</script>
