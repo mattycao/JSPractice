@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // used for omit the empty characters
+    function trim(str) {
+        //return str.replace(/^[\s]+|[\s]+$/g, '');
+        // here, what we need notice is \u00A0, this is the no-breaking space, which is the <\b>
+        return str.replace(/^[\s\u00A0]+|[\s\u00A0]+$/g, '');
+    }
+
+    var a = '  asdf';
+    console.log(a);
+    console.log(trim(a));
+    a = ' asdf';
+    console.log(trim(a));
+    a = '  asdf';
+    console.log(trim(a));
+    a = 'asdf ';
+    console.log(trim(a));
+    a = 'asdf  ';
+    console.log(trim(a));
+    a = '   asdf   ';
+    console.log(trim(a));
+    a = '';
+    console.log(trim(a));
+</script>
+</body>
+</html>
