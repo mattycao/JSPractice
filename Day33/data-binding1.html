@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Binding</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            height: 30px;
+            width: 130px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="Change the Data" id="btn">
+<p id="output"></p>
+<script>
+    var btn = document.getElementById('btn');
+    var out = document.getElementById('output');
+    // Model to View
+
+    function modelToViewDataBinding(object, property, ele) {
+        Object.observe(object, function(changes) {
+            changes.forEach(function(change) {
+                ele.innerText = object[property];
+            });
+        })
+    }
+
+
+    //test
+    var user = {};
+    modelToViewDataBinding(user, 'firstName', out);
+    user.firstName = 'Bill';
+    btn.onclick = function () {
+        user.firstName = 'Allen';
+    }
+</script>
+</body>
+</html>

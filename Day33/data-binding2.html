@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Binding</title>
+    <script src="jquery-1.9.1.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            height: 30px;
+            width: 130px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<input type="text" id="btn">
+<p id="output"></p>
+<script>
+    var btn = document.getElementById('btn');
+    var out = document.getElementById('output');
+    // Model to View
+
+    function viewToModelDataBinding(ele, obj, property) {
+        $(ele).change(function() {
+            obj[property] = $(ele).val();
+            console.log(obj[property]);
+        });
+    }
+
+
+    //test
+    var user = {};
+    viewToModelDataBinding(btn, user, 'firstName');
+</script>
+</body>
+</html>
