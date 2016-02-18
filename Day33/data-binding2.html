@@ -26,10 +26,10 @@
     // Model to View
 
     function viewToModelDataBinding(ele, obj, property) {
-        $(ele).change(function() {
+        ele.oninput = function() {
             obj[property] = $(ele).val();
             console.log(obj[property]);
-        });
+        };
     }
 
 
