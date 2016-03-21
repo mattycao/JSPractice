@@ -5,7 +5,7 @@ var str1 = '2012-04-06 12:30:30';
 // use as many ways you can
 // method 1: using the split
 console.log(str1.split(/[-\s:]/));
-// method 2: exec method from regex
+// method hw2: exec method from regex
 var reg = /\d+/g;
 var result = null;
 while((result = reg.exec(str1))!= null) {

@@ -75,7 +75,7 @@ function setCss(ele, attr, val) {
  * @param fn
  */
 function animate(ele, attr, target, duration, fn) {
-    // animation process: 1. the total time 2. the initial value 3. the target value 4. the duration 5. the interval time
+    // animation process: 1. the total time hw2. the initial value 3. the target value 4. the duration 5. the interval time
     clearInterval(ele.timer);
     var begin = getCss(ele, attr);
     var change = target - begin;

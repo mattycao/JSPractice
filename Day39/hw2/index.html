@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proxy</title>
+</head>
+<body>
+<div class="content">
+</div>
+</body>
+<script>
+    var xhr = new XMLHttpRequest;
+    var oDiv = document.querySelector('.content');
+    xhr.open('POST', '/reg', true);
+    xhr.responseType = 'json';
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log(xhr.response);
+            oDiv.innerHTML = JSON.stringify(xhr.response);
+        }
+    }
+    xhr.send(JSON.stringify({name: 'HelloWorld'}));
+</script>
+</html>

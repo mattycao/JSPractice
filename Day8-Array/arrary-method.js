@@ -1,7 +1,7 @@
 /**
  * Created by caoyangkaka on 12/16/15.
  */
-    // 1.concat, 2. pop, shift, push, unshift 3. sort, reverse 4. slice, splice, 5. toString, indexOf, join
+    // 1.concat, hw2. pop, shift, push, unshift 3. sort, reverse 4. slice, splice, 5. toString, indexOf, join
 
 // notice the concat will produce a new array, which is a good way to produce a new array
 var arr1 = [1, 2, 3, 4];
