@@ -11,30 +11,24 @@ var multer = require('multer');
 var storage = multer.diskStorage({
     //保存文件的路径
     destination: function (req, file, cb) {
-        cb(null, '../public/images');
+        cb(null, 'public/images');
     },
     //指定保存的文件名
     filename: function (req, file, cb) {
         console.error(file);
-        cb(null, Date.now()+'.'+file.mimetype.slice(file.mimetype.indexOf('/')+1));
+        cb(null, Date.now() + '.' + file.mimetype.slice(file.mimetype.indexOf('/') + 1));
     }
 });
 
-var upload = multer({ storage: storage });
+var upload = multer({storage: storage});
 
 router.get('/add', middleware.checkLogin, function (req, res) {
     res.render('article/add', {title: '发表文章'});
 });
 
 router.post('/add', middleware.checkLogin, upload.single('img'), function (req, res) {
-    var article = req.body;
+    console.log(req.body);
     req.body.user = req.session.user._id;
-    if (req.file) {
-        article.img = '/images/'+req.file.filename;
-        console.log('*******=' + req.file);
-    } else {
-        console.log('********Empty:');
-    }
     new Model('Article')(req.body).save(function (err, article) {
         if (err) {
             req.flash('error', '更新文章失败!'); //放置失败信息
