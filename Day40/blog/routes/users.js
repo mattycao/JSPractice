@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var middleware = require('../middleware');
 
 /**
  * For user registration
  */
-router.get('/reg', function (req, res, next) {
+router.get('/reg', middleware.checkNotLogin, function (req, res, next) {
     res.render('user/reg', {title: '注册'});
 });
 
@@ -33,7 +34,7 @@ router.post('/reg', function (req, res) {
 /**
  * For user registration
  */
-router.get('/login', function (req, res, next) {
+router.get('/login', middleware.checkNotLogin, function (req, res, next) {
     res.render('user/login', {title: '登陆'});
 });
 
@@ -43,9 +44,9 @@ router.get('/login', function (req, res, next) {
 router.post('/login', function (req, res) {
     var user = req.body;
     user.password = md5(user.password);
-    Model('User').findOne(user,function(err,user){
-        if(err){
-            req.flash('error',err);
+    Model('User').findOne(user, function (err, user) {
+        if (err) {
+            req.flash('error', err);
             return res.redirect('/users/login');
         }
         req.session.user = user;//用户信息存入 session
@@ -56,8 +57,9 @@ router.post('/login', function (req, res) {
 /**
  * For logout on user
  */
-router.get('/logout', function (req, res, next) {
-    res.end('user logout.');
+router.get('/logout', middleware.checkLogin, function (req, res, next) {
+    req.session.user  = null;
+    res.redirect('/');
 });
 
 function md5(val) {

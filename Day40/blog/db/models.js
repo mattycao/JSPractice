@@ -12,6 +12,7 @@ module.exports = {
         user: {type: ObjectId, ref: 'User'},
         title: String,
         content: String,
+        img:String,
         createAt: {type: Date, default: Date.now}
     }
 }

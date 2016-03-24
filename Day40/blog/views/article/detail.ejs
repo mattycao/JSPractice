@@ -1,0 +1,25 @@
+<% include ../include/header.ejs%>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <%=article.title%>
+        </div>
+        <div class="panel-body">
+            <%-article.content%>
+        </div>
+        <div class="panel-footer">
+            <a href="/articles/edit/<%=article._id%>" class="btn btn-warning">编辑</a>
+            <a href="/articles/delete/<%=article._id%>" class="btn btn-danger">删除</a>
+        </div>
+    </div>
+    <div id="SOHUCS"></div>
+</div>
+<!--高速版-->
+<script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: 'cysjdBayY',
+        conf: 'prod_79d1b7b191e6649c309748768ef96a9c'
+    });
+</script>
+<% include ../include/footer.ejs%>
