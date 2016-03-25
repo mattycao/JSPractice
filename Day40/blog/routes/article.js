@@ -7,6 +7,7 @@ var middleware = require('../middleware');
 var markdown = require('markdown').markdown;
 var path = require('path');
 var multer = require('multer');
+var async = require('async');
 //指定文件元素的存储方式
 var storage = multer.diskStorage({
     //保存文件的路径
@@ -59,9 +60,19 @@ router.post('/add', middleware.checkLogin, upload.single('img'), function (req, 
 });
 
 router.get('/detail/:_id', function (req, res) {
-    Model('Article').findOne({_id: req.params._id}, function (err, article) {
-        article.content = markdown.toHTML(article.content);
-        res.render('article/detail', {title: '查看文章', article: article});
+    async.parallel([function(callback){
+        Model('Article').findOne({_id: req.params._id}, function (err, article) {
+            article.content = markdown.toHTML(article.content);
+            callback(err,article);
+        });
+    },function(callback){
+        Model('Article').update({_id:req.params._id},{$inc:{pv:1}},callback);
+    }],function(err,article){
+        if(err){
+            req.flash('error',err);
+            res.redirect('back');
+        }
+        res.render('article/detail', {title: '查看文章', article: article[0]});
     });
 });
 

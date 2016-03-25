@@ -13,6 +13,7 @@ module.exports = {
         title: String,
         content: String,
         img:String,
+        pv: {type:Number,default:0},
         createAt: {type: Date, default: Date.now}
     }
 }
