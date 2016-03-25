@@ -1,4 +1,4 @@
-<% include include/header.ejs%>
+<% include include/header.ejs %>
 <div class="container">
     <ul class="media-list">
         <%
@@ -7,21 +7,34 @@
         <li class="media">
             <div class="media-left">
                 <a href="#">
-                    <img class="media-object" src="<%=article.user.avatar%>" alt="">
+                    <img class="media-object" src="<%= article.user.avatar %>" alt="">
                 </a>
             </div>
             <div class="media-body">
-                <h4 class="media-heading"><a href="/articles/detail/<%=article._id%>"><%=article.title%></a></h4>
-                <p class="media-left"><%- article.content%></p>
+                <h4 class="media-heading"><a href="/articles/detail/<%= article._id %>"><%= article.title %></a></h4>
+                <p class="media-left"><%- article.content %></p>
             </div>
             <div class="media-bottom">
-                作者:<%=article.user.username%>
-                发表时间:<%=article.createAt.toLocaleString()%>
+                作者:<%= article.user.username %>
+                发表时间:<%= article.createAt.toLocaleString() %>
             </div>
         </li>
         <%
         });
         %>
     </ul>
+    <div style="text-align:center">
+        <ul class="pagination">
+            <%
+            for(var i = 1;i <= totalPage;i++){
+            %>
+            <li><a href="/articles/list/<%= i %>/<%= pageSize %>?keyword=<%= keyword %>"><%= i %></a></li>
+
+            <%
+            }
+            %>
+        </ul>
+    </div>
 </div>
-<% include include/footer.ejs%>
+<script src="/javascripts/page.js"></script>
+<% include include/footer.ejs %>

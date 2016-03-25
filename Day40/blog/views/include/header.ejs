@@ -9,7 +9,7 @@
 </head>
 <body>
 <!--最外面的容器nav标签，并添加nav-bar样式类，表示这里面属于导航条 -->
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-inverse" role="navigation">
     <!--第二步：增加header-->
     <div class="navbar-header">
         <!--最左侧的，默认不可见 按钮标签里嵌套了三个span的icon。然后给与navbar-toggle样式类和属性collapse(收起)，点击的时候目标为data-target。当窗口缩小到一定程度，右侧的效果显现。-->
@@ -38,6 +38,13 @@
             }
             %>
         </ul>
+        <form class="navbar-form navbar-right" role="search" method="get" action="/articles/list/1/2">
+            <div class="form-group">
+                <label for="keyword" style="color: white;">关键字</label>
+                <input type="text" name="keyword" id="keyword" class="form-control" value="<%= keyword %>"/>
+            </div>
+            <button type="submit" class="btn  btn-default" value="search" name="searchBtn">搜索</button>
+        </form>
     </div>
 </nav>
 <div class="container text-center">
