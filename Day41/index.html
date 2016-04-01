@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="chatModule">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <script src="angular.js"></script>
+    <style>
+        .user {
+            color: green;
+        }
+    </style>
+</head>
+<body style="margin-top: 50px;" ng-controller="chatController">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-success">
+                <div class="panel panel-heading">欢迎来到聊天室</div>
+                <div class="panel-body">
+                    <ul class="list-group" id="messageUl">
+                        <div class="list-group-item message" ng-repeat="message in messages">
+                            <span class="user">{{message.user}}</span>: {{message.content}}
+                        </div>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-xs-10">
+                            <input type="text" class="form-control" id="txtMsg" ng-keypress="chatKeyPress()"
+                                   ng-model="info">
+                        </div>
+                        <div class="col-xs-2">
+                            <button class="btn btn-default" type="button" id="sendBtn" ng-click="sendClick()">发言
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="jquery.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    angular.module('chatModule', []);
+    angular.module('chatModule').factory('mySocket', function ($rootScope) {
+        var socket = io.connect('/');
+        return {
+            on: function (e, cb) {
+                socket.on(e, function () {
+                    var temp = arguments;
+                    $rootScope.$apply(function () {
+                        cb.apply(socket, temp);
+                    })
+                })
+            },
+            emit: function emit(e, data, cb) {
+                if (typeof cb == 'function') {
+                    socket.emit(e, data, function () {
+                        var temp = arguments;
+                        $rootScope.$apply(function () {
+                            cb.apply(socket, temp);
+                        });
+                    });
+                }
+                else {
+                    socket.emit(e, data);
+                }
+            },
+            send: function (data) {
+                socket.send(data);
+            }
+        }
+    });
+    angular.module('chatModule').controller('chatController', function ($scope, mySocket) {
+        $scope.messages = [];
+        mySocket.on('connect', function () {
+            $scope.messages.push({user: '系统', content: '连接成功'});
+        });
+        mySocket.on('message', function (msg) {
+            $scope.messages.push(msg);
+        });
+
+        $scope.chatKeyPress = function () {
+            $('#txtMsg').keypress(function (event) {
+                var char = event.charCode || event.keyCode || event.which;
+                if (char == 13) {
+                    $scope.sendClick();
+                }
+            });
+        };
+        $scope.sendClick = function () {
+            var message = this.info;
+            if (message && message.length > 0) {
+                mySocket.send(message);
+                this.info = '';
+            }
+        }
+
+    });
+</script>
+
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "blog",
+  "description": "",
+  "main": "",
+  "authors": [
+    "mattycao <mattycao@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/mattycao/JSPractice",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
